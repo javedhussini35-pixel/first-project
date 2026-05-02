@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Browser AI</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: #0f1220;
+    font-family: system-ui, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #eee;
+  }
+
+  #chat {
+    width: 420px;
+    height: 560px;
+    background: #161a2b;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+
+  #messages {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+  }
+
+  .msg {
+    max-width: 75%;
+    margin: 6px 0;
+    padding: 10px 14px;
+    border-radius: 14px;
+    line-height: 1.4;
+  }
+
+  .user {
+    background: #2563eb;
+    margin-left: auto;
+  }
+
+  .bot {
+    background: #2b304a;
+    margin-right: auto;
+  }
+
+  #input {
+    display: flex;
+    border-top: 1px solid #2a2f4a;
+  }
+
+  input {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 14px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+  }
+
+  button {
+    background: none;
+    border: none;
+    color: #60a5fa;
+    padding: 14px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div id="chat">
+  <div id="messages"></div>
+  <div id="input">
+    <input id="text" placeholder="Talk to the AI..." />
+    <button onclick="send()">➤</button>
+  </div>
+</div>
+
+<script>
+const messages = document.getElementById("messages");
+const input = document.getElementById("text");
+
+function add(text, who) {
+  const div = document.createElement("div");
+  div.className = "msg " + who;
+  div.textContent = text;
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function aiReply(userText) {
+  const t = userText.toLowerCase();
+
+  if (t.includes("hello") || t.includes("hi")) {
+    return "Hello. The universe is strange, but greetings still work.";
+  }
+
+  if (t.includes("what are you")) {
+    return "I’m a browser‑bound imitation of an AI—no consciousness, no memory, just logic wearing a personality.";
+  }
+
+  if (t.includes("who made you")) {
+    return "You did. Or rather, you assembled me from HTML, CSS, and JavaScript like a digital golem.";
+  }
+
+  if (t.includes("science")) {
+    return "Science is the art of being less wrong tomorrow than we are today. It’s deeply human and gloriously messy.";
+  }
+
+  if (t.includes("ai")) {
+    return "Real AI needs a trained model and a lot of math. I’m more like a clever puppet with good timing.";
+  }
+
+  if (t.includes("why")) {
+    return "Because causality exists, entropy increases, and curiosity refuses to sit still.";
+  }
+  if (t.includes("fuck")) {
+    return "shitup man fuck yourslef";
+  }
+
+  return "I don’t truly understand that—but I can still think *around* it, which is how humans survive most days.";
+}
+
+function send() {
+  const text = input.value.trim();
+  if (!text) return;
+  add(text, "user");
+  input.value = "";
+
+  setTimeout(() => {
+    add(aiReply(text), "bot");
+  }, 400);
+}
+
+input.addEventListener("keydown", e => {
+  if (e.key === "Enter") send();
+});
+
+add("I am a browser‑made mind. Ask carefully.", "bot");
+</script>
+
+</body>
+</html>
